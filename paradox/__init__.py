@@ -33,3 +33,26 @@ from paradox.walk.recursive_walk import debug_walk
 # Convenience aliases matching the spec's camelCase API
 useImage = use_image
 getRandomImage = get_random_image
+
+__all__ = [
+    "use_image",
+    "get_random_image",
+    "analyze_image",
+    "visualize_walk",
+    "generate_key",
+    "generate_key128",
+    "generate_key256",
+    "generate_key512",
+    "encrypt",
+    "decrypt",
+    "encrypt_text",
+    "decrypt_text",
+    "encrypt_file",
+    "decrypt_file",
+    "export_metadata",
+    "import_metadata",
+    "export_entropy",
+    "debug_walk",
+    "useImage",
+    "getRandomImage",
+]

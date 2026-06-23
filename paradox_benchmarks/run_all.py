@@ -5,7 +5,6 @@ Executes phases 1-8 sequentially, collects experimental metrics, and generates
 the final research report, CSV performance data, and academic paper metrics.
 """
 
-import os
 import sys
 import json
 import csv
@@ -22,7 +21,7 @@ repo_root = Path(__file__).resolve().parent.parent
 if str(repo_root) not in sys.path:
     sys.path.insert(0, str(repo_root))
 
-from paradox_benchmarks import (
+from paradox_benchmarks import (  # noqa: E402
     phase1_validation,
     phase2_collision,
     phase3_avalanche,
@@ -58,7 +57,7 @@ def generate_benchmark_results_csv(results: Dict[str, Any], output_dir: Path, re
             writer = csv.DictWriter(f, fieldnames=csv_fields)
             writer.writeheader()
             writer.writerows(rows)
-    print(f"  ✓ Saved benchmark_results.csv")
+    print("  ✓ Saved benchmark_results.csv")
 
 
 def generate_paper_metrics_json(results: Dict[str, Any], output_dir: Path, repo_root: Path):
@@ -115,7 +114,7 @@ def generate_paper_metrics_json(results: Dict[str, Any], output_dir: Path, repo_
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w") as f:
             json.dump(metrics, f, indent=4)
-    print(f"  ✓ Saved paper_metrics.json")
+    print("  ✓ Saved paper_metrics.json")
 
 
 def generate_validation_report_md(
@@ -269,7 +268,7 @@ Execution timings across different image sizes at the **LOW** security level (2,
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w") as f:
             f.write(md)
-    print(f"  ✓ Saved validation_report.md")
+    print("  ✓ Saved validation_report.md")
 
 
 def main():

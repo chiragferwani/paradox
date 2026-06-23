@@ -5,7 +5,6 @@ key derivation, encryption, and metadata management.
 """
 
 from pathlib import Path
-from typing import Optional
 
 from paradox.image_source.local import ImageData
 from paradox.kdf.hkdf import generate_key

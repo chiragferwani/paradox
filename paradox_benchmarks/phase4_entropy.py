@@ -67,7 +67,7 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     )
     stats["quality"] = quality
 
-    print(f"\n  Entropy Analysis Results:")
+    print("\n  Entropy Analysis Results:")
     print(f"    Combined Shannon entropy : {combined_entropy:.4f} / 8.0 bits")
     print(f"    Per-key mean entropy     : {stats['per_key_entropy_mean']:.4f}")
     print(f"    Bit distribution         : {stats['zero_pct']:.2f}% zeros, {stats['one_pct']:.2f}% ones")

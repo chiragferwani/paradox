@@ -4,12 +4,9 @@ Compare LOW / MEDIUM / HIGH / EXTREME on execution time,
 memory usage, key generation speed, and entropy score.
 """
 
-import os
-import time
 from pathlib import Path
 from typing import Any, Dict, List
 
-import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

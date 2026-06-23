@@ -5,7 +5,6 @@ Compares Paradox (RVE-KDE) against PBKDF2-SHA256, HKDF-SHA256, Argon2id, and
 BLAKE3-KDF across entropy, avalanche, collision, performance, memory, and sensitivity metrics.
 """
 
-import os
 import sys
 import time
 import json
@@ -15,7 +14,7 @@ import hashlib
 import tracemalloc
 import concurrent.futures
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import List, Tuple
 
 # Set up matplotlib backend to be Agg (headless)
 import matplotlib
@@ -30,15 +29,15 @@ repo_root = Path(__file__).resolve().parent.parent
 if str(repo_root) not in sys.path:
     sys.path.insert(0, str(repo_root))
 
-from paradox.image_source.local import use_image, ImageData
-from paradox.kdf.hkdf import generate_key
+from paradox.image_source.local import use_image  # noqa: E402
+from paradox.kdf.hkdf import generate_key  # noqa: E402
 
 # Import cryptographic primitives
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.primitives.kdf.hkdf import HKDF
-from cryptography.hazmat.primitives import hashes
-import argon2.low_level
-import blake3
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC  # noqa: E402
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF  # noqa: E402
+from cryptography.hazmat.primitives import hashes  # noqa: E402
+import argon2.low_level  # noqa: E402
+import blake3  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -334,8 +333,8 @@ def main():
 
     for kdf in kdfs_to_test:
         p1_results[kdf] = {}
-        for l in key_lengths:
-            print(f"  Evaluating {kdf.upper()} (Key len: {l*8} bits) ...")
+        for key_len in key_lengths:
+            print(f"  Evaluating {kdf.upper()} (Key len: {key_len*8} bits) ...")
             keys = []
             
             # Execute derivation for all images
@@ -343,15 +342,15 @@ def main():
                 if kdf == "paradox":
                     img_path = image_paths[i]
                     img = use_image(img_path)
-                    key, _ = generate_key(img, key_length=l, security_level="low", nonce=fixed_salt)
+                    key, _ = generate_key(img, key_length=key_len, security_level="low", nonce=fixed_salt)
                 elif kdf == "pbkdf2":
-                    key = gen_pbkdf2(psw, fixed_salt, l, iterations=1000)
+                    key = gen_pbkdf2(psw, fixed_salt, key_len, iterations=1000)
                 elif kdf == "hkdf":
-                    key = gen_hkdf(psw, fixed_salt, l)
+                    key = gen_hkdf(psw, fixed_salt, key_len)
                 elif kdf == "argon2id":
-                    key = gen_argon2id(psw, fixed_salt, l, time_cost=1, memory_cost=8192, parallelism=1)
+                    key = gen_argon2id(psw, fixed_salt, key_len, time_cost=1, memory_cost=8192, parallelism=1)
                 elif kdf == "blake3":
-                    key = gen_blake3_kdf(psw, fixed_salt, l)
+                    key = gen_blake3_kdf(psw, fixed_salt, key_len)
                 keys.append(key)
             
             all_key_bytes = b"".join(keys)
@@ -359,7 +358,7 @@ def main():
             zero_pct, one_pct = bit_distribution(all_key_bytes)
             chi2_stat, p_val = chi_square_bytes(all_key_bytes)
             
-            p1_results[kdf][l] = {
+            p1_results[kdf][key_len] = {
                 "entropy": round(ent, 6),
                 "zero_pct": round(zero_pct, 4),
                 "one_pct": round(one_pct, 4),
@@ -460,7 +459,6 @@ def main():
         t0 = time.perf_counter()
         
         # Parallel keygen execution to speed up
-        tasks = []
         extra_params = {}
         if kdf == "pbkdf2":
             extra_params = {"iterations": 1000}
@@ -831,10 +829,10 @@ def main():
         
         # Entropy rows
         for kdf in kdfs_to_test:
-            for l in key_lengths:
-                res = p1_results[kdf][l]
-                writer.writerow(["Entropy", kdf, f"{l*8}-bit key", res["entropy"]])
-                writer.writerow(["Chi-Square p-value", kdf, f"{l*8}-bit key", res["p_value"]])
+            for key_len in key_lengths:
+                res = p1_results[kdf][key_len]
+                writer.writerow(["Entropy", kdf, f"{key_len*8}-bit key", res["entropy"]])
+                writer.writerow(["Chi-Square p-value", kdf, f"{key_len*8}-bit key", res["p_value"]])
                 
         # Avalanche rows
         for kdf in kdfs_to_test:
@@ -858,7 +856,7 @@ def main():
     # Generate Metrics JSON
     # -----------------------------------------------------------------------
     metrics_export = {
-        "entropy_results": {kdf: {str(l*8): p1_results[kdf][l] for l in key_lengths} for kdf in kdfs_to_test},
+        "entropy_results": {kdf: {str(key_len*8): p1_results[kdf][key_len] for key_len in key_lengths} for kdf in kdfs_to_test},
         "avalanche_results": {kdf: {
             "mean": p2_results[kdf]["mean"],
             "median": p2_results[kdf]["median"],

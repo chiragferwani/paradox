@@ -1,6 +1,5 @@
 """Shared utilities for the Paradox benchmarking suite."""
 
-import os
 import sys
 import time
 import hashlib
@@ -8,7 +7,7 @@ import tempfile
 import tracemalloc
 from pathlib import Path
 from contextlib import contextmanager
-from typing import Tuple, Optional, Dict, Any, List
+from typing import Tuple, Optional, Dict, List
 
 import numpy as np
 from PIL import Image

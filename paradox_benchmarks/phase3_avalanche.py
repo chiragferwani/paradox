@@ -4,7 +4,6 @@ Modify a single pixel and measure how many key bits change.
 Ideal: ~50 % bit difference.
 """
 
-import os
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -64,7 +63,7 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         else "poor"
     )
 
-    print(f"\n  Avalanche Statistics:")
+    print("\n  Avalanche Statistics:")
     print(f"    Mean bit diff  : {stats['mean_pct']:.2f} %")
     print(f"    Std deviation  : {stats['std_pct']:.2f} %")
     print(f"    Min / Max      : {stats['min_pct']:.2f} % / {stats['max_pct']:.2f} %")
@@ -92,7 +91,7 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
 
     # Box plot
     fig, ax = plt.subplots(figsize=(8, 5))
-    bp = ax.boxplot(diffs, vert=True, patch_artist=True,
+    ax.boxplot(diffs, vert=True, patch_artist=True,
                     boxprops=dict(facecolor="#4e79a7", alpha=0.7))
     ax.axhline(50, color="red", linestyle="--", linewidth=1.5, label="Ideal (50 %)")
     ax.set_ylabel("Bit Difference (%)")

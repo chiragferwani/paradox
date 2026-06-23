@@ -4,7 +4,6 @@ Generates walk traversal plots, heatmaps, entropy density maps,
 and layer visualizations using Paradox internals.
 """
 
-import os
 from pathlib import Path
 from typing import Any, Dict
 
@@ -14,7 +13,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
-from paradox.image_source.local import use_image
 from paradox.seed.generator import generate_initial_seed
 from paradox.recursion.layers import execute_recursion
 from paradox.visualize.walk_visualizer import visualize_walk

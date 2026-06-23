@@ -5,7 +5,7 @@ collecting entropy at each step.
 """
 
 import hashlib
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Tuple
 
 import numpy as np

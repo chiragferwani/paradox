@@ -13,7 +13,7 @@ from cryptography.hazmat.primitives import hashes
 
 from paradox.image_source.local import ImageData
 from paradox.seed.generator import generate_initial_seed
-from paradox.recursion.layers import execute_recursion, RecursionResult
+from paradox.recursion.layers import execute_recursion
 from paradox.entropy.collector import EntropyPool
 
 

@@ -10,7 +10,6 @@ matplotlib.use("Agg")  # Non-interactive backend
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
-from paradox.walk.recursive_walk import WalkResult
 
 
 def visualize_walk(

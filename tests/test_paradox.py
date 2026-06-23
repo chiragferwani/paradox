@@ -5,9 +5,7 @@ image loading, seed generation, recursive walk, key derivation,
 encryption, and decryption.
 """
 
-import hashlib
 import os
-import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -16,14 +14,14 @@ from PIL import Image
 
 # Ensure we can import the package
 import paradox
-from paradox.image_source.local import use_image, ImageData
+from paradox.image_source.local import use_image
 from paradox.seed.generator import generate_initial_seed, generate_deterministic_seed
 from paradox.walk.coordinate_engine import seed_to_coordinate, get_neighbours
 from paradox.hashchain.engine import evolve_seed
 from paradox.entropy.extractor import extract_pixel_data
 from paradox.entropy.collector import EntropyPool, export_entropy
 from paradox.recursion.layers import SecurityLevel, execute_recursion
-from paradox.kdf.hkdf import generate_key, generate_key128, generate_key256, generate_key512
+from paradox.kdf.hkdf import generate_key, generate_key128, generate_key512
 from paradox.crypto import aes, chacha
 from paradox.crypto.interface import (
     encrypt, decrypt, encrypt_text, decrypt_text,

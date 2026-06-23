@@ -5,7 +5,6 @@ across different image sizes.
 """
 
 import os
-import time
 from pathlib import Path
 from typing import Any, Dict, List
 
