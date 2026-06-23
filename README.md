@@ -7,6 +7,8 @@
 > [!WARNING]
 > Paradox is an experimental research-oriented key derivation framework and should not be considered a replacement for established cryptographic standards such as Argon2, PBKDF2, HKDF, or BLAKE3.
 
+![Paradox Visual Entropy Key Derivation Engine](theparadox.png)
+
 ---
 
 ## 1. Project Overview & Motivation
@@ -106,25 +108,7 @@ Symmetric key (256-bit) latency and memory footprints compared to traditional st
 
 ---
 
-## 8. Development Roadmap
-
-- [ ] Implement Rust-based coordinate walks (via PyO3) to reduce execution latency by $100\times$.
-- [ ] Add Fractal walks and non-local Levy flights to break spatial neighbor correlations.
-- [ ] Implement multi-image visual fusion support.
-- [ ] Add hardware acceleration support (GPU walk parallelization).
-
----
-
-## 9. Contribution Guide
-
-Contributions are welcome! Please follow these steps:
-1.  Review code style guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
-2.  Add tests for new functionality in `tests/`.
-3.  Ensure continuous integration actions pass before submitting pull requests.
-
----
-
-## 10. Citation & Acknowledgements
+## 8. Citation & Acknowledgements
 
 If you use Paradox in your cryptographic research or academic publications, please cite it using:
 ```bibtex
@@ -144,6 +128,6 @@ If you use Paradox in your cryptographic research or academic publications, plea
 
 ---
 
-## 11. License
+## 9. License
 
 Licensed under the MIT License - see [LICENSE](LICENSE) for details.
