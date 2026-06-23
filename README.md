@@ -1,13 +1,14 @@
 # Paradox: Recursive Visual Entropy Key Derivation Engine (RVE-KDE)
 
-[![Python Version](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)](pyproject.toml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status: Research Prototype](https://img.shields.io/badge/Status-Research%20Prototype-orange.svg)](#)
+<p align="center">
+  <img src="theparadox.png" width="350" alt="Paradox Logo">
+</p>
 
-> [!WARNING]
-> Paradox is an experimental research-oriented key derivation framework and should not be considered a replacement for established cryptographic standards such as Argon2, PBKDF2, HKDF, or BLAKE3.
-
-![Paradox Visual Entropy Key Derivation Engine](theparadox.png)
+<p align="center">
+  <a href="pyproject.toml"><img src="https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue" alt="Python Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Status-Research%20Prototype-orange.svg" alt="Status: Research Prototype"></a>
+</p>
 
 ---
 
@@ -131,3 +132,8 @@ If you use Paradox in your cryptographic research or academic publications, plea
 ## 9. License
 
 Licensed under the MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+> [!WARNING]
+> Paradox is an experimental research-oriented key derivation framework and should not be considered a replacement for established cryptographic standards such as Argon2, PBKDF2, HKDF, or BLAKE3.
