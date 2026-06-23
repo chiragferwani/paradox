@@ -8,6 +8,7 @@
   <a href="pyproject.toml"><img src="https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue" alt="Python Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
   <a href="#"><img src="https://img.shields.io/badge/Status-Research%20Prototype-orange.svg" alt="Status: Research Prototype"></a>
+  <a href="https://doi.org/10.5281/zenodo.20811708"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20811708.svg" alt="DOI"></a>
 </p>
 
 ---
@@ -117,8 +118,9 @@ If you use Paradox in your cryptographic research or academic publications, plea
   author = {Chirag Ferwani},
   title = {Paradox: Recursive Visual Entropy Key Derivation Engine},
   url = {https://github.com/chiragferwani/paradox},
-  version = {1.0.0},
-  year = {2026}
+  version = {1.0.2},
+  year = {2026},
+  doi = {10.5281/zenodo.20811708}
 }
 ```
 

@@ -8,7 +8,8 @@ authors:
   - family-names: Ferwani
     given-names: Chirag
 title: "Paradox: Recursive Visual Entropy Key Derivation Engine (RVE-KDE)"
-version: 1.0.0
+version: 1.0.2
+doi: 10.5281/zenodo.20811708
 date-released: 2026-06-23
 url: "https://github.com/chiragferwani/paradox"
 abstract: "An experimental cryptographic key derivation framework that derives high-entropy keys from deterministic recursive traversals of image pixel data."
