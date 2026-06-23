@@ -1,7 +1,7 @@
 # Paradox: Recursive Visual Entropy Key Derivation Engine (RVE-KDE)
 
 <p align="center">
-  <img src="theparadox.png" width="350" alt="Paradox Logo">
+ <img src="https://github.com/chiragferwani/paradox/blob/main/theparadox.png" width="350" alt="Paradox Logo">
 </p>
 
 <p align="center">
