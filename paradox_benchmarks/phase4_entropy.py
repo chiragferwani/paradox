@@ -9,12 +9,18 @@ from typing import Any, Dict, List
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from paradox_benchmarks.utils import (
-    load_test_image, gen_key, shannon_entropy, bit_distribution,
-    header, progress, apply_plot_style,
+    load_test_image,
+    gen_key,
+    shannon_entropy,
+    bit_distribution,
+    header,
+    progress,
+    apply_plot_style,
 )
 
 
@@ -32,7 +38,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
 
     print(f"  Generating {n_keys} keys for entropy analysis …")
     for i in range(n_keys):
-        k, _ = gen_key(img, nonce=os.urandom(32), timestamp=fixed_ts, security_level="low")
+        k, _ = gen_key(
+            img, nonce=os.urandom(32), timestamp=fixed_ts, security_level="low"
+        )
         entropies.append(shannon_entropy(k))
         z, o = bit_distribution(k)
         total_zeros += z
@@ -60,17 +68,22 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     }
 
     quality = (
-        "excellent" if combined_entropy >= 7.9
-        else "good" if combined_entropy >= 7.5
-        else "moderate" if combined_entropy >= 7.0
-        else "poor"
+        "excellent"
+        if combined_entropy >= 7.9
+        else (
+            "good"
+            if combined_entropy >= 7.5
+            else "moderate" if combined_entropy >= 7.0 else "poor"
+        )
     )
     stats["quality"] = quality
 
     print("\n  Entropy Analysis Results:")
     print(f"    Combined Shannon entropy : {combined_entropy:.4f} / 8.0 bits")
     print(f"    Per-key mean entropy     : {stats['per_key_entropy_mean']:.4f}")
-    print(f"    Bit distribution         : {stats['zero_pct']:.2f}% zeros, {stats['one_pct']:.2f}% ones")
+    print(
+        f"    Bit distribution         : {stats['zero_pct']:.2f}% zeros, {stats['one_pct']:.2f}% ones"
+    )
     print(f"    Quality                  : {quality}")
 
     # ---- Charts ----
@@ -82,7 +95,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     fig, ax = plt.subplots(figsize=(12, 5))
     ax.bar(range(len(entropies)), entropies, color="#59a14f", alpha=0.8, width=1.0)
     ax.axhline(8.0, color="red", linestyle="--", label="Max (8.0)")
-    ax.axhline(np.mean(arr), color="orange", linestyle="-", label=f"Mean ({np.mean(arr):.3f})")
+    ax.axhline(
+        np.mean(arr), color="orange", linestyle="-", label=f"Mean ({np.mean(arr):.3f})"
+    )
     ax.set_xlabel("Key Index")
     ax.set_ylabel("Shannon Entropy (bits)")
     ax.set_title(f"Per-Key Shannon Entropy (n={n_keys})")
@@ -96,7 +111,10 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     fig, ax = plt.subplots(figsize=(7, 7))
     ax.pie(
         [total_zeros, total_ones],
-        labels=[f"0-bits ({stats['zero_pct']:.2f}%)", f"1-bits ({stats['one_pct']:.2f}%)"],
+        labels=[
+            f"0-bits ({stats['zero_pct']:.2f}%)",
+            f"1-bits ({stats['one_pct']:.2f}%)",
+        ],
         colors=["#4e79a7", "#e15759"],
         autopct="%1.2f%%",
         startangle=90,

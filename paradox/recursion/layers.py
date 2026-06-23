@@ -35,9 +35,7 @@ class SecurityLevel(Enum):
             return cls[name_upper]
         except KeyError:
             valid = ", ".join(level.level_name for level in cls)
-            raise ValueError(
-                f"Unknown security level '{name}'. Valid levels: {valid}"
-            )
+            raise ValueError(f"Unknown security level '{name}'. Valid levels: {valid}")
 
 
 @dataclass

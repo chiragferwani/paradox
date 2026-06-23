@@ -28,9 +28,8 @@ def evolve_seed(
     Returns:
         New 64-byte evolved seed.
     """
-    coord_bytes = (
-        coordinate[0].to_bytes(4, byteorder="big")
-        + coordinate[1].to_bytes(4, byteorder="big")
+    coord_bytes = coordinate[0].to_bytes(4, byteorder="big") + coordinate[1].to_bytes(
+        4, byteorder="big"
     )
 
     material = current_seed + pixel_data + coord_bytes + neighbour_data

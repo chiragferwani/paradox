@@ -95,7 +95,6 @@ def export_entropy(pool: EntropyPool) -> dict:
         "total_chunks": pool.total_chunks,
         "master_pool_hex": pool.get_master_pool().hex(),
         "layer_chunk_counts": {
-            layer: len(chunks)
-            for layer, chunks in pool.layer_entropy.items()
+            layer: len(chunks) for layer, chunks in pool.layer_entropy.items()
         },
     }

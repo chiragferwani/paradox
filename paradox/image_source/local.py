@@ -11,7 +11,6 @@ from typing import Tuple
 import numpy as np
 from PIL import Image
 
-
 SUPPORTED_FORMATS = {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tiff", ".tif"}
 
 

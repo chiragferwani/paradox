@@ -22,7 +22,9 @@ def encrypt(
         Tuple of (ciphertext, nonce) where ciphertext includes the Poly1305 tag.
     """
     if len(key) != 32:
-        raise ValueError(f"ChaCha20-Poly1305 requires a 32-byte key, got {len(key)} bytes")
+        raise ValueError(
+            f"ChaCha20-Poly1305 requires a 32-byte key, got {len(key)} bytes"
+        )
 
     chacha_nonce = os.urandom(12)
     chacha = ChaCha20Poly1305(key)
@@ -48,7 +50,9 @@ def decrypt(
         Decrypted plaintext bytes.
     """
     if len(key) != 32:
-        raise ValueError(f"ChaCha20-Poly1305 requires a 32-byte key, got {len(key)} bytes")
+        raise ValueError(
+            f"ChaCha20-Poly1305 requires a 32-byte key, got {len(key)} bytes"
+        )
 
     chacha = ChaCha20Poly1305(key)
     return chacha.decrypt(nonce, ciphertext, associated_data or None)

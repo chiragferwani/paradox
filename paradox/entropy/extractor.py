@@ -48,7 +48,9 @@ def _compute_local_contrast(
     y_max = min(height, y + 2)
 
     patch = pixels[y_min:y_max, x_min:x_max].astype(np.float64)
-    brightness_map = 0.299 * patch[:, :, 0] + 0.587 * patch[:, :, 1] + 0.114 * patch[:, :, 2]
+    brightness_map = (
+        0.299 * patch[:, :, 0] + 0.587 * patch[:, :, 1] + 0.114 * patch[:, :, 2]
+    )
     return float(np.std(brightness_map) / 255.0)
 
 
@@ -77,7 +79,11 @@ def extract_pixel_data(
     contrast = _compute_local_contrast(pixels, x, y, width, height)
 
     return PixelData(
-        x=x, y=y, r=r, g=g, b=b,
+        x=x,
+        y=y,
+        r=r,
+        g=g,
+        b=b,
         hex_color=hex_color,
         brightness=brightness,
         contrast=contrast,

@@ -24,17 +24,23 @@ from paradox.recursion.layers import SecurityLevel, execute_recursion
 from paradox.kdf.hkdf import generate_key, generate_key128, generate_key512
 from paradox.crypto import aes, chacha
 from paradox.crypto.interface import (
-    encrypt, decrypt, encrypt_text, decrypt_text,
-    encrypt_file, decrypt_file,
+    encrypt,
+    decrypt,
+    encrypt_text,
+    decrypt_text,
+    encrypt_file,
+    decrypt_file,
 )
 from paradox.metadata.serializer import (
-    serialize_metadata, deserialize_metadata,
-    export_metadata, import_metadata,
+    serialize_metadata,
+    deserialize_metadata,
+    export_metadata,
+    import_metadata,
 )
 from paradox.analysis.image_analyzer import analyze_image
 
-
 # --- Fixtures ---
+
 
 @pytest.fixture
 def test_image_path(tmp_path):
@@ -67,6 +73,7 @@ def fixed_timestamp():
 
 # --- Image Source Tests ---
 
+
 class TestImageSource:
     def test_use_image_loads_correctly(self, test_image):
         assert test_image.width == 64
@@ -95,6 +102,7 @@ class TestImageSource:
 
 
 # --- Seed Generator Tests ---
+
 
 class TestSeedGenerator:
     def test_seed_length(self, test_image, fixed_nonce, fixed_timestamp):
@@ -133,6 +141,7 @@ class TestSeedGenerator:
 
 # --- Coordinate Engine Tests ---
 
+
 class TestCoordinateEngine:
     def test_seed_to_coordinate_in_bounds(self):
         seed = os.urandom(64)
@@ -161,6 +170,7 @@ class TestCoordinateEngine:
 
 # --- Hash Chain Tests ---
 
+
 class TestHashChain:
     def test_evolve_seed_length(self):
         seed = os.urandom(64)
@@ -182,6 +192,7 @@ class TestHashChain:
 
 # --- Pixel Extractor Tests ---
 
+
 class TestPixelExtractor:
     def test_extract_pixel_data(self, test_image):
         px = extract_pixel_data(test_image.pixels, 10, 10, 64, 64)
@@ -200,6 +211,7 @@ class TestPixelExtractor:
 
 
 # --- Entropy Collector Tests ---
+
 
 class TestEntropyCollector:
     def test_entropy_pool_basic(self):
@@ -241,6 +253,7 @@ class TestEntropyCollector:
 
 # --- Security Level Tests ---
 
+
 class TestSecurityLevel:
     def test_security_levels(self):
         low = SecurityLevel.from_string("low")
@@ -258,14 +271,17 @@ class TestSecurityLevel:
 
 # --- Recursive Walk Tests ---
 
+
 class TestRecursiveWalk:
     def test_walk_produces_results(self, test_image, fixed_nonce, fixed_timestamp):
         seed = generate_initial_seed(
             test_image.image_hash, fixed_nonce, fixed_timestamp
         )
         result = execute_recursion(
-            test_image.pixels, seed,
-            test_image.width, test_image.height,
+            test_image.pixels,
+            seed,
+            test_image.width,
+            test_image.height,
             security_level="low",
         )
         assert len(result.layer_results) == 2  # LOW = 2 layers
@@ -277,13 +293,17 @@ class TestRecursiveWalk:
             test_image.image_hash, fixed_nonce, fixed_timestamp
         )
         result1 = execute_recursion(
-            test_image.pixels, seed,
-            test_image.width, test_image.height,
+            test_image.pixels,
+            seed,
+            test_image.width,
+            test_image.height,
             security_level="low",
         )
         result2 = execute_recursion(
-            test_image.pixels, seed,
-            test_image.width, test_image.height,
+            test_image.pixels,
+            seed,
+            test_image.width,
+            test_image.height,
             security_level="low",
         )
         assert result1.final_seed == result2.final_seed
@@ -295,11 +315,15 @@ class TestRecursiveWalk:
 
 # --- Key Derivation Tests ---
 
+
 class TestKeyDerivation:
     def test_generate_key_256(self, test_image, fixed_nonce, fixed_timestamp):
         key, meta = generate_key(
-            test_image, key_length=32, security_level="low",
-            nonce=fixed_nonce, timestamp=fixed_timestamp,
+            test_image,
+            key_length=32,
+            security_level="low",
+            nonce=fixed_nonce,
+            timestamp=fixed_timestamp,
         )
         assert len(key) == 32
         assert meta["version"] == "1.0"
@@ -308,39 +332,51 @@ class TestKeyDerivation:
 
     def test_generate_key_deterministic(self, test_image, fixed_nonce, fixed_timestamp):
         key1, _ = generate_key(
-            test_image, security_level="low",
-            nonce=fixed_nonce, timestamp=fixed_timestamp,
+            test_image,
+            security_level="low",
+            nonce=fixed_nonce,
+            timestamp=fixed_timestamp,
         )
         key2, _ = generate_key(
-            test_image, security_level="low",
-            nonce=fixed_nonce, timestamp=fixed_timestamp,
+            test_image,
+            security_level="low",
+            nonce=fixed_nonce,
+            timestamp=fixed_timestamp,
         )
         assert key1 == key2
 
     def test_generate_key128(self, test_image, fixed_nonce, fixed_timestamp):
         key, _ = generate_key128(
-            test_image, security_level="low",
-            nonce=fixed_nonce, timestamp=fixed_timestamp,
+            test_image,
+            security_level="low",
+            nonce=fixed_nonce,
+            timestamp=fixed_timestamp,
         )
         assert len(key) == 16
 
     def test_generate_key512(self, test_image, fixed_nonce, fixed_timestamp):
         key, _ = generate_key512(
-            test_image, security_level="low",
-            nonce=fixed_nonce, timestamp=fixed_timestamp,
+            test_image,
+            security_level="low",
+            nonce=fixed_nonce,
+            timestamp=fixed_timestamp,
         )
         assert len(key) == 64
 
     def test_blake3_kdf(self, test_image, fixed_nonce, fixed_timestamp):
         key, meta = generate_key(
-            test_image, security_level="low", kdf="blake3",
-            nonce=fixed_nonce, timestamp=fixed_timestamp,
+            test_image,
+            security_level="low",
+            kdf="blake3",
+            nonce=fixed_nonce,
+            timestamp=fixed_timestamp,
         )
         assert len(key) == 32
         assert meta["kdf"] == "blake3"
 
 
 # --- Crypto Engine Tests ---
+
 
 class TestCryptoEngines:
     def test_aes_encrypt_decrypt(self):
@@ -371,11 +407,10 @@ class TestCryptoEngines:
 
 # --- High-Level Interface Tests ---
 
+
 class TestHighLevelInterface:
     def test_encrypt_decrypt_text(self, test_image):
-        encrypted = encrypt_text(
-            "Hello World", test_image, security_level="low"
-        )
+        encrypted = encrypt_text("Hello World", test_image, security_level="low")
         decrypted = decrypt_text(encrypted, test_image)
         assert decrypted == "Hello World"
 
@@ -387,7 +422,8 @@ class TestHighLevelInterface:
 
     def test_encrypt_decrypt_chacha(self, test_image):
         encrypted = encrypt_text(
-            "ChaCha test", test_image,
+            "ChaCha test",
+            test_image,
             security_level="low",
             algorithm="ChaCha20-Poly1305",
         )
@@ -410,6 +446,7 @@ class TestHighLevelInterface:
 
 # --- Metadata Tests ---
 
+
 class TestMetadata:
     def test_serialize_deserialize(self):
         meta = {"version": "1.0", "nonce": "abc123", "layers": 8}
@@ -427,6 +464,7 @@ class TestMetadata:
 
 # --- Image Analyzer Tests ---
 
+
 class TestImageAnalyzer:
     def test_analyze_image(self, test_image):
         results = analyze_image(test_image)
@@ -440,6 +478,7 @@ class TestImageAnalyzer:
 
 
 # --- Package API Tests ---
+
 
 class TestPackageAPI:
     def test_version(self):

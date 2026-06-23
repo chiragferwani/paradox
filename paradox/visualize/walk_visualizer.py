@@ -6,10 +6,10 @@ for research, debugging, and presentations.
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")  # Non-interactive backend
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-
 
 
 def visualize_walk(
@@ -43,7 +43,9 @@ def visualize_walk(
 
     if show_layers and num_layers > 1:
         fig, axes = plt.subplots(2, 2, figsize=(14, 12))
-        fig.suptitle("Paradox Recursive Walk Visualization", fontsize=16, fontweight="bold")
+        fig.suptitle(
+            "Paradox Recursive Walk Visualization", fontsize=16, fontweight="bold"
+        )
 
         # Panel 1: Full traversal map
         _plot_traversal_map(axes[0, 0], walk_results, width, height)

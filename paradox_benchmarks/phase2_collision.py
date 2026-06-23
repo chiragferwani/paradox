@@ -21,6 +21,7 @@ def _collision_test(label: str, n: int, config: Dict[str, Any]) -> Dict[str, Any
 
     if n >= 500:
         from paradox_benchmarks.utils import gen_keys_parallel
+
         nonces = [os.urandom(32) for _ in range(n)]
         all_keys = gen_keys_parallel(img.path, nonces, security_level="low")
         for k in all_keys:
@@ -64,9 +65,10 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     results["batch_2"] = _collision_test(f"Batch 2 ({n2:,} keys)", n2, config)
 
     results["overall_collision_rate"] = (
-        (results["batch_1"]["collisions"] + results["batch_2"]["collisions"])
-        / (n1 + n2)
+        results["batch_1"]["collisions"] + results["batch_2"]["collisions"]
+    ) / (n1 + n2)
+    results["all_passed"] = (
+        results["batch_1"]["passed"] and results["batch_2"]["passed"]
     )
-    results["all_passed"] = results["batch_1"]["passed"] and results["batch_2"]["passed"]
     print(f"\n  Phase 2 overall: {'PASS ✓' if results['all_passed'] else 'FAIL ✗'}")
     return results

@@ -12,7 +12,6 @@ import requests
 
 from paradox.image_source.local import use_image, ImageData
 
-
 _DEFAULT_CACHE_DIR = Path.home() / ".paradox" / "cache" / "images"
 
 

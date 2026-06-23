@@ -12,7 +12,10 @@ from pathlib import Path
 from typing import Any, Dict
 
 from paradox_benchmarks.utils import (
-    load_test_image, gen_key, header, progress,
+    load_test_image,
+    gen_key,
+    header,
+    progress,
 )
 
 
@@ -46,7 +49,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
             progress(i + 1, n, "Keys")
     t2 = len(keys) == n
     results["test2_same_image_diff_nonce"] = {
-        "passed": t2, "total": n, "unique": len(keys),
+        "passed": t2,
+        "total": n,
+        "unique": len(keys),
         "description": f"Same Image + {n} Different Nonces → All Unique",
     }
     print(f"    {'PASS ✓' if t2 else 'FAIL ✗'}  ({len(keys)}/{n} unique)")
@@ -62,7 +67,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         progress(i + 1, n_img, "Images")
     t3 = len(keys) == n_img
     results["test3_diff_images_same_nonce"] = {
-        "passed": t3, "total": n_img, "unique": len(keys),
+        "passed": t3,
+        "total": n_img,
+        "unique": len(keys),
         "description": f"{n_img} Different Images + Same Nonce → All Unique",
     }
     print(f"    {'PASS ✓' if t3 else 'FAIL ✗'}  ({len(keys)}/{n_img} unique)")
@@ -79,7 +86,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
             progress(i + 1, n_mix, "Combos")
     t4 = len(keys) == n_mix
     results["test4_diff_images_diff_nonces"] = {
-        "passed": t4, "total": n_mix, "unique": len(keys),
+        "passed": t4,
+        "total": n_mix,
+        "unique": len(keys),
         "description": f"{n_mix} Diff Images + Diff Nonces → No Collisions",
     }
     print(f"    {'PASS ✓' if t4 else 'FAIL ✗'}  ({len(keys)}/{n_mix} unique)")
@@ -87,5 +96,7 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     results["all_passed"] = all(
         v.get("passed", True) for v in results.values() if isinstance(v, dict)
     )
-    print(f"\n  Phase 1 overall: {'ALL PASSED ✓' if results['all_passed'] else 'FAILURES DETECTED ✗'}")
+    print(
+        f"\n  Phase 1 overall: {'ALL PASSED ✓' if results['all_passed'] else 'FAILURES DETECTED ✗'}"
+    )
     return results

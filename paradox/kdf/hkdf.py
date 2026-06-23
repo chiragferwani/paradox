@@ -61,7 +61,9 @@ def _derive_key_blake3(
         Derived key bytes.
     """
     master_entropy = entropy_pool.get_extended_pool(length=128)
-    return blake3.blake3(master_entropy, derive_key_context=context).digest(length=key_length)
+    return blake3.blake3(master_entropy, derive_key_context=context).digest(
+        length=key_length
+    )
 
 
 def _run_full_pipeline(

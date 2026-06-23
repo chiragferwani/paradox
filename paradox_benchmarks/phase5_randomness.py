@@ -10,13 +10,20 @@ from typing import Any, Dict
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy import stats as sp_stats
 
 from paradox_benchmarks.utils import (
-    load_test_image, gen_key, shannon_entropy, chi_square_bytes,
-    bit_distribution, header, progress, apply_plot_style,
+    load_test_image,
+    gen_key,
+    shannon_entropy,
+    chi_square_bytes,
+    bit_distribution,
+    header,
+    progress,
+    apply_plot_style,
 )
 
 
@@ -32,13 +39,18 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     print(f"  Generating {n_keys:,} keys ({n_keys * 32:,} bytes of key material) …")
     if n_keys >= 500:
         from paradox_benchmarks.utils import gen_keys_parallel
+
         nonces = [os.urandom(32) for _ in range(n_keys)]
-        all_keys = gen_keys_parallel(img.path, nonces, timestamp=fixed_ts, security_level="low")
+        all_keys = gen_keys_parallel(
+            img.path, nonces, timestamp=fixed_ts, security_level="low"
+        )
         for k in all_keys:
             all_bytes.extend(k)
     else:
         for i in range(n_keys):
-            k, _ = gen_key(img, nonce=os.urandom(32), timestamp=fixed_ts, security_level="low")
+            k, _ = gen_key(
+                img, nonce=os.urandom(32), timestamp=fixed_ts, security_level="low"
+            )
             all_bytes.extend(k)
             if (i + 1) % max(1, n_keys // 40) == 0 or i == n_keys - 1:
                 progress(i + 1, n_keys, "Keys")
@@ -85,17 +97,24 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     # Interpret chi-square: p > 0.01 means we cannot reject uniformity
     stats["chi_square_uniform"] = chi2_p > 0.01
     stats["quality"] = (
-        "excellent" if chi2_p > 0.05 and entropy > 7.95
-        else "good" if chi2_p > 0.01 and entropy > 7.9
-        else "acceptable" if chi2_p > 0.001
-        else "poor"
+        "excellent"
+        if chi2_p > 0.05 and entropy > 7.95
+        else (
+            "good"
+            if chi2_p > 0.01 and entropy > 7.9
+            else "acceptable" if chi2_p > 0.001 else "poor"
+        )
     )
 
     print(f"\n  Randomness Results ({total_bytes:,} bytes):")
     print(f"    Shannon entropy   : {entropy:.6f} / 8.0")
-    print(f"    Bit distribution  : {stats['zero_pct']:.2f}% zeros, {stats['one_pct']:.2f}% ones")
+    print(
+        f"    Bit distribution  : {stats['zero_pct']:.2f}% zeros, {stats['one_pct']:.2f}% ones"
+    )
     print(f"    Chi-square        : {chi2:.2f}  (p={chi2_p:.6f}, df=255)")
-    print(f"    Uniform (p>0.01)  : {'YES ✓' if stats['chi_square_uniform'] else 'NO ✗'}")
+    print(
+        f"    Uniform (p>0.01)  : {'YES ✓' if stats['chi_square_uniform'] else 'NO ✗'}"
+    )
     print(f"    Quality           : {stats['quality']}")
 
     # ---- Charts ----
@@ -106,8 +125,13 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     # Byte frequency histogram
     fig, ax = plt.subplots(figsize=(14, 5))
     ax.bar(range(256), byte_freq, color="#4e79a7", alpha=0.8, width=1.0)
-    ax.axhline(expected_freq, color="red", linestyle="--", linewidth=1.5,
-               label=f"Expected ({expected_freq:.1f})")
+    ax.axhline(
+        expected_freq,
+        color="red",
+        linestyle="--",
+        linewidth=1.5,
+        label=f"Expected ({expected_freq:.1f})",
+    )
     ax.set_xlabel("Byte Value (0–255)")
     ax.set_ylabel("Frequency")
     ax.set_title(f"Byte Frequency Distribution ({total_bytes:,} bytes)")
@@ -131,7 +155,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
 
     # Bit frequency bar
     fig, ax = plt.subplots(figsize=(7, 5))
-    ax.bar(["0-bits", "1-bits"], [zeros, ones], color=["#4e79a7", "#e15759"], alpha=0.85)
+    ax.bar(
+        ["0-bits", "1-bits"], [zeros, ones], color=["#4e79a7", "#e15759"], alpha=0.85
+    )
     ax.axhline(total_bits / 2, color="green", linestyle="--", label="Ideal (50%)")
     ax.set_ylabel("Count")
     ax.set_title(f"Bit Frequency ({total_bits:,} bits)")

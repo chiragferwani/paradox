@@ -17,7 +17,12 @@ from paradox.image_source.local import use_image
 from paradox.image_source.random_fetch import get_random_image
 from paradox.analysis.image_analyzer import analyze_image
 from paradox.visualize.walk_visualizer import visualize_walk
-from paradox.kdf.hkdf import generate_key, generate_key128, generate_key256, generate_key512
+from paradox.kdf.hkdf import (
+    generate_key,
+    generate_key128,
+    generate_key256,
+    generate_key512,
+)
 from paradox.crypto.interface import (
     encrypt,
     decrypt,

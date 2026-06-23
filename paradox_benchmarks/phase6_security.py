@@ -8,14 +8,19 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from paradox_benchmarks.utils import (
-    load_test_image, gen_key, shannon_entropy, timer, memory_tracker,
-    header, apply_plot_style,
+    load_test_image,
+    gen_key,
+    shannon_entropy,
+    timer,
+    memory_tracker,
+    header,
+    apply_plot_style,
 )
-
 
 _LEVELS = ["low", "medium", "high", "extreme"]
 
@@ -48,15 +53,21 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
             "total_steps": steps,
             "time_s": round(t["elapsed"], 4),
             "peak_memory_mb": round(mem["peak_mb"], 2),
-            "keys_per_sec": round(1.0 / t["elapsed"], 4) if t["elapsed"] > 0 else float("inf"),
+            "keys_per_sec": (
+                round(1.0 / t["elapsed"], 4) if t["elapsed"] > 0 else float("inf")
+            ),
             "entropy": round(ent, 4),
             "key_hex": key.hex(),
         }
         rows.append(row)
-        print(f"  {t['elapsed']:.2f}s  |  {mem['peak_mb']:.1f} MB  |  entropy {ent:.4f}")
+        print(
+            f"  {t['elapsed']:.2f}s  |  {mem['peak_mb']:.1f} MB  |  entropy {ent:.4f}"
+        )
 
     # Print comparison table
-    print(f"\n  {'Level':<10} {'Steps':>12} {'Layers':>7} {'Time (s)':>10} {'Mem (MB)':>10} {'Keys/s':>10} {'Entropy':>8}")
+    print(
+        f"\n  {'Level':<10} {'Steps':>12} {'Layers':>7} {'Time (s)':>10} {'Mem (MB)':>10} {'Keys/s':>10} {'Entropy':>8}"
+    )
     print(f"  {'-'*67}")
     for r in rows:
         print(

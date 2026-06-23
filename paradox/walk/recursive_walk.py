@@ -96,9 +96,7 @@ def perform_walk(
         )
 
         # 5. Collect entropy
-        entropy_chunk = hashlib.sha3_256(
-            current_seed + pixel_data.to_bytes()
-        ).digest()
+        entropy_chunk = hashlib.sha3_256(current_seed + pixel_data.to_bytes()).digest()
         entropy_pool.append(entropy_chunk)
 
         # Record step if requested
@@ -141,6 +139,11 @@ def debug_walk(
         WalkResult with all steps recorded.
     """
     return perform_walk(
-        pixels, initial_seed, width, height, num_steps,
-        layer=0, record_steps=True,
+        pixels,
+        initial_seed,
+        width,
+        height,
+        num_steps,
+        layer=0,
+        record_steps=True,
     )

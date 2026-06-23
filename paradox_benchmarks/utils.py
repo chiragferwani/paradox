@@ -12,12 +12,12 @@ from typing import Tuple, Optional, Dict, List
 import numpy as np
 from PIL import Image
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from paradox.image_source.local import use_image, ImageData
 from paradox.kdf.hkdf import generate_key
-
 
 # ---------------------------------------------------------------------------
 # Image helpers
@@ -43,7 +43,11 @@ def load_test_image(width: int = 64, height: int = 64, seed: int = 42) -> ImageD
 
 
 def create_modified_image(
-    image: ImageData, x: int = 0, y: int = 0, channel: int = 0, delta: int = 1,
+    image: ImageData,
+    x: int = 0,
+    y: int = 0,
+    channel: int = 0,
+    delta: int = 1,
 ) -> ImageData:
     """Return a copy of *image* with a single pixel value changed."""
     modified = image.pixels.copy()
@@ -60,6 +64,7 @@ def create_modified_image(
 # ---------------------------------------------------------------------------
 # Key generation wrapper
 # ---------------------------------------------------------------------------
+
 
 def gen_key(
     image: ImageData,
@@ -84,6 +89,7 @@ def _parallel_gen_key_worker(args) -> bytes:
     path, nonce, timestamp, security_level, key_length, kdf = args
     from paradox.image_source.local import use_image
     from paradox.kdf.hkdf import generate_key
+
     image = use_image(path)
     key, _ = generate_key(
         image,
@@ -107,6 +113,7 @@ def gen_keys_parallel(
 ) -> List[bytes]:
     """Generate multiple keys in parallel using multiprocessing."""
     import concurrent.futures
+
     tasks = [
         (image_path, nonce, timestamp, security_level, key_length, kdf)
         for nonce in nonces
@@ -116,10 +123,10 @@ def gen_keys_parallel(
     return results
 
 
-
 # ---------------------------------------------------------------------------
 # Analytical helpers
 # ---------------------------------------------------------------------------
+
 
 def bit_difference(a: bytes, b: bytes) -> Tuple[int, float]:
     """Return (differing_bits, percentage)."""
@@ -155,6 +162,7 @@ def chi_square_bytes(data: bytes) -> float:
 # Timing / memory context managers
 # ---------------------------------------------------------------------------
 
+
 @contextmanager
 def timer():
     result: Dict[str, float] = {"elapsed": 0.0}
@@ -182,6 +190,7 @@ def memory_tracker():
 # Console helpers
 # ---------------------------------------------------------------------------
 
+
 def progress(current: int, total: int, prefix: str = "", width: int = 40) -> None:
     pct = current / total if total else 1
     filled = int(width * pct)
@@ -202,6 +211,7 @@ def header(title: str) -> None:
 # Plot style
 # ---------------------------------------------------------------------------
 
+
 def apply_plot_style() -> None:
     """Apply a consistent plot style for all charts."""
     try:
@@ -211,11 +221,13 @@ def apply_plot_style() -> None:
             plt.style.use("ggplot")
         except OSError:
             pass
-    plt.rcParams.update({
-        "figure.figsize": (10, 6),
-        "font.size": 11,
-        "axes.titlesize": 14,
-        "axes.labelsize": 12,
-        "savefig.dpi": 150,
-        "savefig.bbox": "tight",
-    })
+    plt.rcParams.update(
+        {
+            "figure.figsize": (10, 6),
+            "font.size": 11,
+            "axes.titlesize": 14,
+            "axes.labelsize": 12,
+            "savefig.dpi": 150,
+            "savefig.bbox": "tight",
+        }
+    )

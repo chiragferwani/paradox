@@ -10,6 +10,7 @@ from typing import Any, Dict, List
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -17,8 +18,12 @@ from paradox.image_source.local import use_image
 from paradox.crypto.interface import encrypt_text, decrypt_text
 
 from paradox_benchmarks.utils import (
-    create_test_image, load_test_image, gen_key,
-    timer, header, apply_plot_style,
+    create_test_image,
+    load_test_image,
+    gen_key,
+    timer,
+    header,
+    apply_plot_style,
 )
 
 
@@ -56,9 +61,7 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         encrypted_bundle = None
         for _ in range(iterations):
             with timer() as t:
-                encrypted_bundle = encrypt_text(
-                    test_text, img, security_level="low"
-                )
+                encrypted_bundle = encrypt_text(test_text, img, security_level="low")
             enc_times.append(t["elapsed"])
 
         # Decryption time
@@ -76,7 +79,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
             "encrypt_ms": round(np.mean(enc_times) * 1000, 2),
             "decrypt_ms": round(np.mean(dec_times) * 1000, 2),
             "total_ms": round(
-                (np.mean(load_times) + np.mean(keygen_times) + np.mean(enc_times)) * 1000, 2
+                (np.mean(load_times) + np.mean(keygen_times) + np.mean(enc_times))
+                * 1000,
+                2,
             ),
         }
         rows.append(row)
@@ -89,7 +94,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         )
 
     # Print table
-    print(f"\n  {'Size':<12} {'Load (ms)':>10} {'KeyGen (ms)':>12} {'Enc (ms)':>10} {'Dec (ms)':>10} {'Total (ms)':>12}")
+    print(
+        f"\n  {'Size':<12} {'Load (ms)':>10} {'KeyGen (ms)':>12} {'Enc (ms)':>10} {'Dec (ms)':>10} {'Total (ms)':>12}"
+    )
     print(f"  {'-'*66}")
     for r in rows:
         print(
@@ -107,14 +114,38 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     width = 0.2
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    ax.bar(x - 1.5 * width, [r["image_load_ms"] for r in rows], width,
-           label="Image Load", color="#4e79a7", alpha=0.85)
-    ax.bar(x - 0.5 * width, [r["keygen_ms"] for r in rows], width,
-           label="Key Gen", color="#59a14f", alpha=0.85)
-    ax.bar(x + 0.5 * width, [r["encrypt_ms"] for r in rows], width,
-           label="Encrypt", color="#e15759", alpha=0.85)
-    ax.bar(x + 1.5 * width, [r["decrypt_ms"] for r in rows], width,
-           label="Decrypt", color="#f28e2b", alpha=0.85)
+    ax.bar(
+        x - 1.5 * width,
+        [r["image_load_ms"] for r in rows],
+        width,
+        label="Image Load",
+        color="#4e79a7",
+        alpha=0.85,
+    )
+    ax.bar(
+        x - 0.5 * width,
+        [r["keygen_ms"] for r in rows],
+        width,
+        label="Key Gen",
+        color="#59a14f",
+        alpha=0.85,
+    )
+    ax.bar(
+        x + 0.5 * width,
+        [r["encrypt_ms"] for r in rows],
+        width,
+        label="Encrypt",
+        color="#e15759",
+        alpha=0.85,
+    )
+    ax.bar(
+        x + 1.5 * width,
+        [r["decrypt_ms"] for r in rows],
+        width,
+        label="Decrypt",
+        color="#f28e2b",
+        alpha=0.85,
+    )
     ax.set_xlabel("Image Size")
     ax.set_ylabel("Time (ms)")
     ax.set_title("Performance by Image Size (LOW security)")

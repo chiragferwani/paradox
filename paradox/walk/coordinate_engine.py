@@ -26,8 +26,8 @@ def seed_to_coordinate(
     Returns:
         (x, y) coordinate tuple.
     """
-    x_bytes = seed[offset:offset + 4]
-    y_bytes = seed[offset + 4:offset + 8]
+    x_bytes = seed[offset : offset + 4]
+    y_bytes = seed[offset + 4 : offset + 8]
 
     x = int.from_bytes(x_bytes, byteorder="big") % width
     y = int.from_bytes(y_bytes, byteorder="big") % height

@@ -9,6 +9,7 @@ from typing import Any, Dict
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -18,7 +19,9 @@ from paradox.recursion.layers import execute_recursion
 from paradox.visualize.walk_visualizer import visualize_walk
 
 from paradox_benchmarks.utils import (
-    load_test_image, header, apply_plot_style,
+    load_test_image,
+    header,
+    apply_plot_style,
 )
 
 
@@ -34,15 +37,20 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     ts = 1_700_000_000.0
 
     seed = generate_initial_seed(
-        image_hash=img.image_hash, nonce=nonce, timestamp=ts,
+        image_hash=img.image_hash,
+        nonce=nonce,
+        timestamp=ts,
     )
 
     # Use LOW for speed (1000 steps × 2 layers)
     print("  Executing recursive walk (LOW security, 128×128) …")
     result = execute_recursion(
-        pixels=img.pixels, initial_seed=seed,
-        width=img.width, height=img.height,
-        security_level="low", record_steps=True,
+        pixels=img.pixels,
+        initial_seed=seed,
+        width=img.width,
+        height=img.height,
+        security_level="low",
+        record_steps=True,
     )
 
     charts: list = []
@@ -51,8 +59,11 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     print("  Generating walk visualization …")
     p = str(chart_dir / "walk_visualization.png")
     visualize_walk(
-        result.layer_results, img.width, img.height,
-        output_path=p, show_layers=True,
+        result.layer_results,
+        img.width,
+        img.height,
+        output_path=p,
+        show_layers=True,
     )
     charts.append(p)
     print(f"    → {p}")
@@ -60,19 +71,31 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     # 2. Custom per-layer traversal paths
     print("  Generating per-layer traversal paths …")
     colors = cm.Set1(np.linspace(0, 1, len(result.layer_results)))
-    fig, axes = plt.subplots(1, len(result.layer_results), figsize=(7 * len(result.layer_results), 6))
+    fig, axes = plt.subplots(
+        1, len(result.layer_results), figsize=(7 * len(result.layer_results), 6)
+    )
     if len(result.layer_results) == 1:
         axes = [axes]
     for idx, lr in enumerate(result.layer_results):
         ax = axes[idx]
         coords = lr.coordinates_visited
-        sample = coords[:min(500, len(coords))]
+        sample = coords[: min(500, len(coords))]
         xs = [c[0] for c in sample]
         ys = [c[1] for c in sample]
         ax.plot(xs, ys, linewidth=0.4, alpha=0.6, color=colors[idx])
         if xs:
-            ax.scatter(xs[0], ys[0], c="lime", s=60, zorder=5, edgecolors="black", label="Start")
-            ax.scatter(xs[-1], ys[-1], c="red", s=60, zorder=5, edgecolors="black", label="End")
+            ax.scatter(
+                xs[0],
+                ys[0],
+                c="lime",
+                s=60,
+                zorder=5,
+                edgecolors="black",
+                label="Start",
+            )
+            ax.scatter(
+                xs[-1], ys[-1], c="red", s=60, zorder=5, edgecolors="black", label="End"
+            )
         ax.set_xlim(0, img.width)
         ax.set_ylim(img.height, 0)
         ax.set_aspect("equal")
@@ -150,7 +173,9 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
         "max_visits_per_pixel": max_visits,
         "mean_visits": round(total_visits / max(visited, 1), 2),
     }
-    print(f"    Coverage: {coverage_pct:.1f}% ({visited}/{total_pixels} pixels visited)")
+    print(
+        f"    Coverage: {coverage_pct:.1f}% ({visited}/{total_pixels} pixels visited)"
+    )
     print(f"    Max visits per pixel: {max_visits}")
 
     print(f"\n  All visualizations saved → {chart_dir}/")

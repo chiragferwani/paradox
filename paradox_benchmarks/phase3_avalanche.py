@@ -9,12 +9,18 @@ from typing import Any, Dict, List
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from paradox_benchmarks.utils import (
-    load_test_image, create_modified_image, gen_key,
-    bit_difference, header, progress, apply_plot_style,
+    load_test_image,
+    create_modified_image,
+    gen_key,
+    bit_difference,
+    header,
+    progress,
+    apply_plot_style,
 )
 
 
@@ -57,10 +63,13 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     ideal_deviation = abs(stats["mean_pct"] - 50.0)
     stats["deviation_from_ideal"] = round(ideal_deviation, 4)
     stats["quality"] = (
-        "excellent" if ideal_deviation < 3
-        else "good" if ideal_deviation < 5
-        else "acceptable" if ideal_deviation < 10
-        else "poor"
+        "excellent"
+        if ideal_deviation < 3
+        else (
+            "good"
+            if ideal_deviation < 5
+            else "acceptable" if ideal_deviation < 10 else "poor"
+        )
     )
 
     print("\n  Avalanche Statistics:")
@@ -79,8 +88,13 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.hist(diffs, bins=30, color="#4e79a7", edgecolor="white", alpha=0.85)
     ax.axvline(50, color="red", linestyle="--", linewidth=2, label="Ideal (50 %)")
-    ax.axvline(stats["mean_pct"], color="lime", linestyle="-", linewidth=2,
-               label=f"Mean ({stats['mean_pct']:.2f} %)")
+    ax.axvline(
+        stats["mean_pct"],
+        color="lime",
+        linestyle="-",
+        linewidth=2,
+        label=f"Mean ({stats['mean_pct']:.2f} %)",
+    )
     ax.set_xlabel("Bit Difference (%)")
     ax.set_ylabel("Frequency")
     ax.set_title(f"Avalanche Effect Distribution (n={n_runs})")
@@ -91,8 +105,12 @@ def run(output_dir: Path, config: Dict[str, Any]) -> Dict[str, Any]:
 
     # Box plot
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.boxplot(diffs, vert=True, patch_artist=True,
-                    boxprops=dict(facecolor="#4e79a7", alpha=0.7))
+    ax.boxplot(
+        diffs,
+        vert=True,
+        patch_artist=True,
+        boxprops=dict(facecolor="#4e79a7", alpha=0.7),
+    )
     ax.axhline(50, color="red", linestyle="--", linewidth=1.5, label="Ideal (50 %)")
     ax.set_ylabel("Bit Difference (%)")
     ax.set_title("Avalanche Effect Box Plot")

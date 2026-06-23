@@ -14,6 +14,7 @@ from typing import Any, Dict
 
 # Set up matplotlib backend to be Agg (headless) before any plots are drawn
 import matplotlib
+
 matplotlib.use("Agg")
 
 # Adjust python path to ensure we can import paradox and paradox_benchmarks
@@ -33,23 +34,34 @@ from paradox_benchmarks import (  # noqa: E402
 )
 
 
-def generate_benchmark_results_csv(results: Dict[str, Any], output_dir: Path, repo_root: Path):
+def generate_benchmark_results_csv(
+    results: Dict[str, Any], output_dir: Path, repo_root: Path
+):
     """Write Phase 7 timing metrics to a CSV file."""
-    csv_fields = ["Image Size", "Image Load (ms)", "KeyGen (ms)", "Encrypt (ms)", "Decrypt (ms)", "Total (ms)"]
+    csv_fields = [
+        "Image Size",
+        "Image Load (ms)",
+        "KeyGen (ms)",
+        "Encrypt (ms)",
+        "Decrypt (ms)",
+        "Total (ms)",
+    ]
     rows = []
     for row in results["phase7"]["sizes"]:
-        rows.append({
-            "Image Size": row["size"],
-            "Image Load (ms)": row["image_load_ms"],
-            "KeyGen (ms)": row["keygen_ms"],
-            "Encrypt (ms)": row["encrypt_ms"],
-            "Decrypt (ms)": row["decrypt_ms"],
-            "Total (ms)": row["total_ms"]
-        })
-    
+        rows.append(
+            {
+                "Image Size": row["size"],
+                "Image Load (ms)": row["image_load_ms"],
+                "KeyGen (ms)": row["keygen_ms"],
+                "Encrypt (ms)": row["encrypt_ms"],
+                "Decrypt (ms)": row["decrypt_ms"],
+                "Total (ms)": row["total_ms"],
+            }
+        )
+
     paths = [
         output_dir / "reports" / "benchmark_results.csv",
-        repo_root / "benchmark_results.csv"
+        repo_root / "benchmark_results.csv",
     ]
     for path in paths:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -60,18 +72,20 @@ def generate_benchmark_results_csv(results: Dict[str, Any], output_dir: Path, re
     print("  ✓ Saved benchmark_results.csv")
 
 
-def generate_paper_metrics_json(results: Dict[str, Any], output_dir: Path, repo_root: Path):
+def generate_paper_metrics_json(
+    results: Dict[str, Any], output_dir: Path, repo_root: Path
+):
     """Save key research metrics as JSON for easy parsing into LaTex/papers."""
     metrics = {
         "collision_rate": {
             "batch_1_1k": results["phase2"]["batch_1"]["collision_rate"],
             "batch_2_large": results["phase2"]["batch_2"]["collision_rate"],
-            "overall": results["phase2"]["overall_collision_rate"]
+            "overall": results["phase2"]["overall_collision_rate"],
         },
         "entropy_score": {
             "combined_shannon_entropy": results["phase4"]["combined_entropy"],
             "mean_per_key_shannon_entropy": results["phase4"]["per_key_entropy_mean"],
-            "entropy_ratio": round(results["phase4"]["combined_entropy"] / 8.0, 6)
+            "entropy_ratio": round(results["phase4"]["combined_entropy"] / 8.0, 6),
         },
         "average_avalanche_effect": {
             "mean_pct": results["phase3"]["mean_pct"],
@@ -80,35 +94,79 @@ def generate_paper_metrics_json(results: Dict[str, Any], output_dir: Path, repo_
             "min_pct": results["phase3"]["min_pct"],
             "max_pct": results["phase3"]["max_pct"],
             "deviation_from_ideal": results["phase3"]["deviation_from_ideal"],
-            "quality": results["phase3"]["quality"]
+            "quality": results["phase3"]["quality"],
         },
         "execution_times": {
-            "low_security_keygen_s": next((r["time_s"] for r in results["phase6"]["levels"] if r["level"] == "LOW"), None),
-            "medium_security_keygen_s": next((r["time_s"] for r in results["phase6"]["levels"] if r["level"] == "MEDIUM"), None),
-            "high_security_keygen_s": next((r["time_s"] for r in results["phase6"]["levels"] if r["level"] == "HIGH"), None),
+            "low_security_keygen_s": next(
+                (
+                    r["time_s"]
+                    for r in results["phase6"]["levels"]
+                    if r["level"] == "LOW"
+                ),
+                None,
+            ),
+            "medium_security_keygen_s": next(
+                (
+                    r["time_s"]
+                    for r in results["phase6"]["levels"]
+                    if r["level"] == "MEDIUM"
+                ),
+                None,
+            ),
+            "high_security_keygen_s": next(
+                (
+                    r["time_s"]
+                    for r in results["phase6"]["levels"]
+                    if r["level"] == "HIGH"
+                ),
+                None,
+            ),
         },
         "memory_usage": {
-            "low_security_peak_mb": next((r["peak_memory_mb"] for r in results["phase6"]["levels"] if r["level"] == "LOW"), None),
-            "medium_security_peak_mb": next((r["peak_memory_mb"] for r in results["phase6"]["levels"] if r["level"] == "MEDIUM"), None),
-            "high_security_peak_mb": next((r["peak_memory_mb"] for r in results["phase6"]["levels"] if r["level"] == "HIGH"), None),
+            "low_security_peak_mb": next(
+                (
+                    r["peak_memory_mb"]
+                    for r in results["phase6"]["levels"]
+                    if r["level"] == "LOW"
+                ),
+                None,
+            ),
+            "medium_security_peak_mb": next(
+                (
+                    r["peak_memory_mb"]
+                    for r in results["phase6"]["levels"]
+                    if r["level"] == "MEDIUM"
+                ),
+                None,
+            ),
+            "high_security_peak_mb": next(
+                (
+                    r["peak_memory_mb"]
+                    for r in results["phase6"]["levels"]
+                    if r["level"] == "HIGH"
+                ),
+                None,
+            ),
         },
         "bit_distribution": {
             "zeros_pct": results["phase4"]["zero_pct"],
             "ones_pct": results["phase4"]["one_pct"],
-            "deviation_from_uniform_pct": round(abs(results["phase4"]["one_pct"] - 50.0), 4)
+            "deviation_from_uniform_pct": round(
+                abs(results["phase4"]["one_pct"] - 50.0), 4
+            ),
         },
         "randomness_analysis": {
             "shannon_entropy": results["phase5"]["shannon_entropy"],
             "chi_square": results["phase5"]["chi_square"],
             "chi_square_p_value": results["phase5"]["chi_square_p_value"],
             "chi_square_uniform": results["phase5"]["chi_square_uniform"],
-            "quality": results["phase5"]["quality"]
-        }
+            "quality": results["phase5"]["quality"],
+        },
     }
-    
+
     paths = [
         output_dir / "reports" / "paper_metrics.json",
-        repo_root / "paper_metrics.json"
+        repo_root / "paper_metrics.json",
     ]
     for path in paths:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -118,10 +176,7 @@ def generate_paper_metrics_json(results: Dict[str, Any], output_dir: Path, repo_
 
 
 def generate_validation_report_md(
-    results: Dict[str, Any],
-    output_dir: Path,
-    repo_root: Path,
-    artifact_dir: Path
+    results: Dict[str, Any], output_dir: Path, repo_root: Path, artifact_dir: Path
 ):
     """Write the comprehensive scientific research report."""
     p1 = results["phase1"]
@@ -262,7 +317,7 @@ Execution timings across different image sizes at the **LOW** security level (2,
     paths = [
         output_dir / "reports" / "validation_report.md",
         repo_root / "validation_report.md",
-        artifact_dir / "validation_report.md"
+        artifact_dir / "validation_report.md",
     ]
     for path in paths:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -272,17 +327,32 @@ Execution timings across different image sizes at the **LOW** security level (2,
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Paradox KDF Benchmarking and Validation Suite")
-    parser.add_argument("--fast", action="store_true", help="Run a quick validation (fewer key samples)")
-    parser.add_argument("--full", action="store_true", help="Run the full research suite (100k randomness samples)")
-    parser.add_argument("--output-dir", type=str, default="paradox_benchmarks", help="Output directory for results")
+    parser = argparse.ArgumentParser(
+        description="Paradox KDF Benchmarking and Validation Suite"
+    )
+    parser.add_argument(
+        "--fast", action="store_true", help="Run a quick validation (fewer key samples)"
+    )
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Run the full research suite (100k randomness samples)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="paradox_benchmarks",
+        help="Output directory for results",
+    )
     args = parser.parse_args()
 
     # Determine paths
     output_dir = repo_root / args.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
-    
-    artifact_dir = Path("/home/chirag/.gemini/antigravity-cli/brain/4655abb5-59ce-4897-be37-403501bd963f")
+
+    artifact_dir = Path(
+        "/home/chirag/.gemini/antigravity-cli/brain/4655abb5-59ce-4897-be37-403501bd963f"
+    )
 
     # Set up config based on mode
     if args.fast:
@@ -314,7 +384,9 @@ def main():
             "phase7_sizes": [256, 512, 1024, 2048],
             "phase7_iterations": 3,
         }
-        print(">>> Running Benchmarking in FULL mode (WARNING: Phase 5 generates 100k keys. Using parallel execution)...")
+        print(
+            ">>> Running Benchmarking in FULL mode (WARNING: Phase 5 generates 100k keys. Using parallel execution)..."
+        )
     else:
         # Standard balanced mode (default)
         config = {
@@ -334,9 +406,17 @@ def main():
 
     # Execute all phases
     results = {}
-    
+
     # Create the internal phase directories
-    for sub in ["collision", "avalanche", "entropy", "performance", "randomness", "visualizations", "reports"]:
+    for sub in [
+        "collision",
+        "avalanche",
+        "entropy",
+        "performance",
+        "randomness",
+        "visualizations",
+        "reports",
+    ]:
         (output_dir / sub).mkdir(parents=True, exist_ok=True)
 
     results["phase1"] = phase1_validation.run(output_dir, config)
