@@ -49,8 +49,8 @@ def analyze_image(image: ImageData) -> Dict[str, Any]:
     # Shannon entropy per channel
     results["entropy"] = {}
     for i, channel in enumerate(["red", "green", "blue"]):
-        ch = pixels[:, :, i].flatten()
-        histogram = np.bincount(ch, minlength=256)
+        ch_flat = pixels[:, :, i].flatten()
+        histogram = np.bincount(ch_flat, minlength=256)
         probabilities = histogram / histogram.sum()
         probabilities = probabilities[probabilities > 0]
         entropy = -np.sum(probabilities * np.log2(probabilities))
