@@ -1,0 +1,38 @@
+# GitHub Actions CI - Unit Tests
+# WARNING: Paradox is an experimental research-oriented key derivation framework
+# and should not be considered a replacement for established cryptographic standards
+# such as Argon2, PBKDF2, HKDF, or BLAKE3.
+
+name: Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+        pip install argon2-cffi
+
+    - name: Run pytest
+      run: |
+        pytest tests/ -v

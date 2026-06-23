@@ -1,0 +1,91 @@
+Metric Category,KDF System,Security Level / Parameter,Value
+Entropy,paradox,128-bit key,7.881569
+Chi-Square p-value,paradox,128-bit key,0.510156
+Entropy,paradox,256-bit key,7.945204
+Chi-Square p-value,paradox,256-bit key,0.750974
+Entropy,paradox,512-bit key,7.966282
+Chi-Square p-value,paradox,512-bit key,0.025198
+Entropy,pbkdf2,128-bit key,7.893374
+Chi-Square p-value,pbkdf2,128-bit key,0.863609
+Entropy,pbkdf2,256-bit key,7.937709
+Chi-Square p-value,pbkdf2,256-bit key,0.198422
+Entropy,pbkdf2,512-bit key,7.965509
+Chi-Square p-value,pbkdf2,512-bit key,0.021207
+Entropy,hkdf,128-bit key,7.882162
+Chi-Square p-value,hkdf,128-bit key,0.377419
+Entropy,hkdf,256-bit key,7.941234
+Chi-Square p-value,hkdf,256-bit key,0.423315
+Entropy,hkdf,512-bit key,7.970629
+Chi-Square p-value,hkdf,512-bit key,0.439879
+Entropy,argon2id,128-bit key,7.864517
+Chi-Square p-value,argon2id,128-bit key,0.118648
+Entropy,argon2id,256-bit key,7.940416
+Chi-Square p-value,argon2id,256-bit key,0.431577
+Entropy,argon2id,512-bit key,7.975114
+Chi-Square p-value,argon2id,512-bit key,0.935143
+Entropy,blake3,128-bit key,7.872999
+Chi-Square p-value,blake3,128-bit key,0.190986
+Entropy,blake3,256-bit key,7.944079
+Chi-Square p-value,blake3,256-bit key,0.603192
+Entropy,blake3,512-bit key,7.971734
+Chi-Square p-value,blake3,512-bit key,0.57804
+Avalanche Mean (%),paradox,256-bit key,50.1367
+Avalanche Std Dev (%),paradox,256-bit key,3.1727
+Avalanche Mean (%),pbkdf2,256-bit key,49.9961
+Avalanche Std Dev (%),pbkdf2,256-bit key,3.0002
+Avalanche Mean (%),hkdf,256-bit key,50.1445
+Avalanche Std Dev (%),hkdf,256-bit key,3.1317
+Avalanche Mean (%),argon2id,256-bit key,50.1504
+Avalanche Std Dev (%),argon2id,256-bit key,3.01
+Avalanche Mean (%),blake3,256-bit key,50.0039
+Avalanche Std Dev (%),blake3,256-bit key,2.9359
+Collision Count,paradox,Batch of 1000,0
+Collision Count,pbkdf2,Batch of 1000,0
+Collision Count,hkdf,Batch of 1000,0
+Collision Count,argon2id,Batch of 1000,0
+Collision Count,blake3,Batch of 1000,0
+Latency (ms),paradox,low,110.35000000000001
+Throughput (keys/sec),paradox,low,9.062
+Peak Memory (MB),paradox,low,0.3763
+Latency (ms),pbkdf2,low,0.54
+Throughput (keys/sec),pbkdf2,low,1854.844
+Peak Memory (MB),pbkdf2,low,0.0001
+Latency (ms),hkdf,low,0.25999999999999995
+Throughput (keys/sec),hkdf,low,3872.134
+Peak Memory (MB),hkdf,low,0.0003
+Latency (ms),argon2id,low,6.37
+Throughput (keys/sec),argon2id,low,156.981
+Peak Memory (MB),argon2id,low,0.0001
+Latency (ms),blake3,low,0.04
+Throughput (keys/sec),blake3,low,26803.543
+Peak Memory (MB),blake3,low,0.1894
+Latency (ms),paradox,medium,1839.17
+Throughput (keys/sec),paradox,medium,0.544
+Peak Memory (MB),paradox,medium,5.3509
+Latency (ms),pbkdf2,medium,2.9099999999999997
+Throughput (keys/sec),pbkdf2,medium,343.862
+Peak Memory (MB),pbkdf2,medium,0.0001
+Latency (ms),hkdf,medium,0.2
+Throughput (keys/sec),hkdf,medium,5094.256
+Peak Memory (MB),hkdf,medium,0.0003
+Latency (ms),argon2id,medium,34.17
+Throughput (keys/sec),argon2id,medium,29.264
+Peak Memory (MB),argon2id,medium,0.0001
+Latency (ms),blake3,medium,0.060000000000000005
+Throughput (keys/sec),blake3,medium,16403.392
+Peak Memory (MB),blake3,medium,0.1894
+Latency (ms),paradox,high,37303.1
+Throughput (keys/sec),paradox,high,0.027
+Peak Memory (MB),paradox,high,104.6234
+Latency (ms),pbkdf2,high,18.450000000000003
+Throughput (keys/sec),pbkdf2,high,54.197
+Peak Memory (MB),pbkdf2,high,0.0001
+Latency (ms),hkdf,high,0.17
+Throughput (keys/sec),hkdf,high,5934.313
+Peak Memory (MB),hkdf,high,0.0003
+Latency (ms),argon2id,high,200.25
+Throughput (keys/sec),argon2id,high,4.994
+Peak Memory (MB),argon2id,high,0.0001
+Latency (ms),blake3,high,0.060000000000000005
+Throughput (keys/sec),blake3,high,16981.677
+Peak Memory (MB),blake3,high,0.1894

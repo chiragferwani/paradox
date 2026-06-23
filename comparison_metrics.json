@@ -1,0 +1,389 @@
+{
+    "entropy_results": {
+        "paradox": {
+            "128": {
+                "entropy": 7.881569,
+                "zero_pct": 50.5469,
+                "one_pct": 49.4531,
+                "chi2_stat": 253.76,
+                "p_value": 0.510156,
+                "passes_uniformity": true
+            },
+            "256": {
+                "entropy": 7.945204,
+                "zero_pct": 50.1289,
+                "one_pct": 49.8711,
+                "chi2_stat": 239.36,
+                "p_value": 0.750974,
+                "passes_uniformity": true
+            },
+            "512": {
+                "entropy": 7.966282,
+                "zero_pct": 50.0781,
+                "one_pct": 49.9219,
+                "chi2_stat": 301.04,
+                "p_value": 0.025198,
+                "passes_uniformity": true
+            }
+        },
+        "pbkdf2": {
+            "128": {
+                "entropy": 7.893374,
+                "zero_pct": 49.9687,
+                "one_pct": 50.0313,
+                "chi2_stat": 230.4,
+                "p_value": 0.863609,
+                "passes_uniformity": true
+            },
+            "256": {
+                "entropy": 7.937709,
+                "zero_pct": 49.8477,
+                "one_pct": 50.1523,
+                "chi2_stat": 273.92,
+                "p_value": 0.198422,
+                "passes_uniformity": true
+            },
+            "512": {
+                "entropy": 7.965509,
+                "zero_pct": 50.3145,
+                "one_pct": 49.6855,
+                "chi2_stat": 302.88,
+                "p_value": 0.021207,
+                "passes_uniformity": true
+            }
+        },
+        "hkdf": {
+            "128": {
+                "entropy": 7.882162,
+                "zero_pct": 50.3125,
+                "one_pct": 49.6875,
+                "chi2_stat": 261.44,
+                "p_value": 0.377419,
+                "passes_uniformity": true
+            },
+            "256": {
+                "entropy": 7.941234,
+                "zero_pct": 50.0977,
+                "one_pct": 49.9023,
+                "chi2_stat": 258.72,
+                "p_value": 0.423315,
+                "passes_uniformity": true
+            },
+            "512": {
+                "entropy": 7.970629,
+                "zero_pct": 50.0078,
+                "one_pct": 49.9922,
+                "chi2_stat": 257.76,
+                "p_value": 0.439879,
+                "passes_uniformity": true
+            }
+        },
+        "argon2id": {
+            "128": {
+                "entropy": 7.864517,
+                "zero_pct": 49.5703,
+                "one_pct": 50.4297,
+                "chi2_stat": 281.92,
+                "p_value": 0.118648,
+                "passes_uniformity": true
+            },
+            "256": {
+                "entropy": 7.940416,
+                "zero_pct": 50.1211,
+                "one_pct": 49.8789,
+                "chi2_stat": 258.24,
+                "p_value": 0.431577,
+                "passes_uniformity": true
+            },
+            "512": {
+                "entropy": 7.975114,
+                "zero_pct": 49.8086,
+                "one_pct": 50.1914,
+                "chi2_stat": 221.68,
+                "p_value": 0.935143,
+                "passes_uniformity": true
+            }
+        },
+        "blake3": {
+            "128": {
+                "entropy": 7.872999,
+                "zero_pct": 50.3828,
+                "one_pct": 49.6172,
+                "chi2_stat": 274.56,
+                "p_value": 0.190986,
+                "passes_uniformity": true
+            },
+            "256": {
+                "entropy": 7.944079,
+                "zero_pct": 50.4062,
+                "one_pct": 49.5938,
+                "chi2_stat": 248.48,
+                "p_value": 0.603192,
+                "passes_uniformity": true
+            },
+            "512": {
+                "entropy": 7.971734,
+                "zero_pct": 50.0371,
+                "one_pct": 49.9629,
+                "chi2_stat": 249.92,
+                "p_value": 0.57804,
+                "passes_uniformity": true
+            }
+        }
+    },
+    "avalanche_results": {
+        "paradox": {
+            "mean": 50.1367,
+            "median": 50.0,
+            "std": 3.1727,
+            "min": 42.5781,
+            "max": 57.8125
+        },
+        "pbkdf2": {
+            "mean": 49.9961,
+            "median": 50.0,
+            "std": 3.0002,
+            "min": 41.0156,
+            "max": 59.7656
+        },
+        "hkdf": {
+            "mean": 50.1445,
+            "median": 50.3906,
+            "std": 3.1317,
+            "min": 41.4062,
+            "max": 57.8125
+        },
+        "argon2id": {
+            "mean": 50.1504,
+            "median": 50.0,
+            "std": 3.01,
+            "min": 43.3594,
+            "max": 57.8125
+        },
+        "blake3": {
+            "mean": 50.0039,
+            "median": 50.0,
+            "std": 2.9359,
+            "min": 41.4062,
+            "max": 58.2031
+        }
+    },
+    "collision_results": {
+        "paradox": {
+            "total_keys": 1000,
+            "collision_count": 0,
+            "collision_rate": 0.0,
+            "uniqueness_pct": 100.0,
+            "elapsed_s": 39.825
+        },
+        "pbkdf2": {
+            "total_keys": 1000,
+            "collision_count": 0,
+            "collision_rate": 0.0,
+            "uniqueness_pct": 100.0,
+            "elapsed_s": 0.331
+        },
+        "hkdf": {
+            "total_keys": 1000,
+            "collision_count": 0,
+            "collision_rate": 0.0,
+            "uniqueness_pct": 100.0,
+            "elapsed_s": 0.354
+        },
+        "argon2id": {
+            "total_keys": 1000,
+            "collision_count": 0,
+            "collision_rate": 0.0,
+            "uniqueness_pct": 100.0,
+            "elapsed_s": 2.219
+        },
+        "blake3": {
+            "total_keys": 1000,
+            "collision_count": 0,
+            "collision_rate": 0.0,
+            "uniqueness_pct": 100.0,
+            "elapsed_s": 0.301
+        }
+    },
+    "performance_results": {
+        "low": {
+            "paradox": {
+                "latency_s": 0.11035,
+                "keys_per_sec": 9.062,
+                "throughput_mb_sec": 0.00028
+            },
+            "pbkdf2": {
+                "latency_s": 0.00054,
+                "keys_per_sec": 1854.844,
+                "throughput_mb_sec": 0.05661
+            },
+            "hkdf": {
+                "latency_s": 0.00026,
+                "keys_per_sec": 3872.134,
+                "throughput_mb_sec": 0.11817
+            },
+            "argon2id": {
+                "latency_s": 0.00637,
+                "keys_per_sec": 156.981,
+                "throughput_mb_sec": 0.00479
+            },
+            "blake3": {
+                "latency_s": 4e-05,
+                "keys_per_sec": 26803.543,
+                "throughput_mb_sec": 0.81798
+            }
+        },
+        "medium": {
+            "paradox": {
+                "latency_s": 1.83917,
+                "keys_per_sec": 0.544,
+                "throughput_mb_sec": 2e-05
+            },
+            "pbkdf2": {
+                "latency_s": 0.00291,
+                "keys_per_sec": 343.862,
+                "throughput_mb_sec": 0.01049
+            },
+            "hkdf": {
+                "latency_s": 0.0002,
+                "keys_per_sec": 5094.256,
+                "throughput_mb_sec": 0.15546
+            },
+            "argon2id": {
+                "latency_s": 0.03417,
+                "keys_per_sec": 29.264,
+                "throughput_mb_sec": 0.00089
+            },
+            "blake3": {
+                "latency_s": 6e-05,
+                "keys_per_sec": 16403.392,
+                "throughput_mb_sec": 0.50059
+            }
+        },
+        "high": {
+            "paradox": {
+                "latency_s": 37.3031,
+                "keys_per_sec": 0.027,
+                "throughput_mb_sec": 0.0
+            },
+            "pbkdf2": {
+                "latency_s": 0.01845,
+                "keys_per_sec": 54.197,
+                "throughput_mb_sec": 0.00165
+            },
+            "hkdf": {
+                "latency_s": 0.00017,
+                "keys_per_sec": 5934.313,
+                "throughput_mb_sec": 0.1811
+            },
+            "argon2id": {
+                "latency_s": 0.20025,
+                "keys_per_sec": 4.994,
+                "throughput_mb_sec": 0.00015
+            },
+            "blake3": {
+                "latency_s": 6e-05,
+                "keys_per_sec": 16981.677,
+                "throughput_mb_sec": 0.51824
+            }
+        }
+    },
+    "memory_results": {
+        "low": {
+            "paradox": {
+                "peak_memory_mb": 0.3763
+            },
+            "pbkdf2": {
+                "peak_memory_mb": 0.0001
+            },
+            "hkdf": {
+                "peak_memory_mb": 0.0003
+            },
+            "argon2id": {
+                "peak_memory_mb": 0.0001
+            },
+            "blake3": {
+                "peak_memory_mb": 0.1894
+            }
+        },
+        "medium": {
+            "paradox": {
+                "peak_memory_mb": 5.3509
+            },
+            "pbkdf2": {
+                "peak_memory_mb": 0.0001
+            },
+            "hkdf": {
+                "peak_memory_mb": 0.0003
+            },
+            "argon2id": {
+                "peak_memory_mb": 0.0001
+            },
+            "blake3": {
+                "peak_memory_mb": 0.1894
+            }
+        },
+        "high": {
+            "paradox": {
+                "peak_memory_mb": 104.6234
+            },
+            "pbkdf2": {
+                "peak_memory_mb": 0.0001
+            },
+            "hkdf": {
+                "peak_memory_mb": 0.0003
+            },
+            "argon2id": {
+                "peak_memory_mb": 0.0001
+            },
+            "blake3": {
+                "peak_memory_mb": 0.1894
+            }
+        }
+    },
+    "paradox_scaling_results": [
+        {
+            "size": "256x256",
+            "pixels": 65536,
+            "keygen_time_s": 0.1125
+        },
+        {
+            "size": "512x512",
+            "pixels": 262144,
+            "keygen_time_s": 0.1065
+        },
+        {
+            "size": "1024x1024",
+            "pixels": 1048576,
+            "keygen_time_s": 0.1152
+        },
+        {
+            "size": "2048x2048",
+            "pixels": 4194304,
+            "keygen_time_s": 0.0962
+        }
+    ],
+    "paradox_sensitivity_results": {
+        "single_pixel_pct": 53.5156,
+        "single_channel_pct": 48.8281,
+        "image_rotation_pct": 57.8125,
+        "image_crop_pct": 51.5625,
+        "image_resize_pct": 48.4375
+    },
+    "uniqueness_results": {
+        "paradox": {
+            "mean_hamming": 127.9379,
+            "std_hamming": 8.0656,
+            "min_hamming": 99,
+            "max_hamming": 162,
+            "collisions_projected_100k": 0
+        },
+        "hkdf": {
+            "mean_hamming": 127.8747,
+            "std_hamming": 8.0036,
+            "min_hamming": 98,
+            "max_hamming": 155,
+            "collisions_projected_100k": 0
+        }
+    }
+}

@@ -1,0 +1,20 @@
+# WARNING: Paradox is an experimental research-oriented key derivation framework
+# and should not be considered a replacement for established cryptographic standards
+# such as Argon2, PBKDF2, HKDF, or BLAKE3.
+
+cff-version: 1.2.0
+message: "If you use this software in your research or academic publications, please cite it as below."
+authors:
+  - family-names: Ferwani
+    given-names: Chirag
+title: "Paradox: Recursive Visual Entropy Key Derivation Engine (RVE-KDE)"
+version: 1.0.0
+date-released: 2026-06-23
+url: "https://github.com/chiragferwani/paradox"
+abstract: "An experimental cryptographic key derivation framework that derives high-entropy keys from deterministic recursive traversals of image pixel data."
+keywords:
+  - cryptography
+  - key-derivation
+  - visual-entropy
+  - image-walk
+  - recursive-entropy

@@ -1,0 +1,43 @@
+{
+    "collision_rate": {
+        "batch_1_1k": 0.0,
+        "batch_2_large": 0.0,
+        "overall": 0.0
+    },
+    "entropy_score": {
+        "combined_shannon_entropy": 7.94,
+        "mean_per_key_shannon_entropy": 4.8874,
+        "entropy_ratio": 0.9925
+    },
+    "average_avalanche_effect": {
+        "mean_pct": 50.0859,
+        "median_pct": 50.0,
+        "std_pct": 3.2436,
+        "min_pct": 40.625,
+        "max_pct": 61.3281,
+        "deviation_from_ideal": 0.0859,
+        "quality": "excellent"
+    },
+    "execution_times": {
+        "low_security_keygen_s": 0.4229,
+        "medium_security_keygen_s": 8.151,
+        "high_security_keygen_s": 163.7847
+    },
+    "memory_usage": {
+        "low_security_peak_mb": 0.23,
+        "medium_security_peak_mb": 5.15,
+        "high_security_peak_mb": 104.44
+    },
+    "bit_distribution": {
+        "zeros_pct": 49.8359,
+        "ones_pct": 50.1641,
+        "deviation_from_uniform_pct": 0.1641
+    },
+    "randomness_analysis": {
+        "shannon_entropy": 7.99946,
+        "chi_square": 239.3776,
+        "chi_square_p_value": 0.750717,
+        "chi_square_uniform": true,
+        "quality": "excellent"
+    }
+}
