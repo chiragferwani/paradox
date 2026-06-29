@@ -10,7 +10,6 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.gridspec import GridSpec
 from pathlib import Path
@@ -77,9 +76,9 @@ def plot_entropy_comparison():
 
     for i, kdf in enumerate(KDF_ORDER):
         vals = [M["entropy_results"][kdf][k]["entropy"] for k in key_sizes]
-        bars = ax.bar(x + i * width - 2 * width, vals, width,
-                      label=LABEL[kdf], color=PALETTE[kdf], alpha=0.88,
-                      edgecolor="white", linewidth=0.6)
+        ax.bar(x + i * width - 2 * width, vals, width,
+               label=LABEL[kdf], color=PALETTE[kdf], alpha=0.88,
+               edgecolor="white", linewidth=0.6)
 
     ax.set_xlabel("Key Size (bits)")
     ax.set_ylabel("Shannon Entropy (bits/byte)")
@@ -370,9 +369,9 @@ def plot_summary_dashboard():
     ax_e = fig.add_subplot(gs[1, 1])
     ax_e.set_facecolor(bg)
     pvals = [M["entropy_results"][k]["256"]["p_value"] for k in KDF_ORDER]
-    bars_e = ax_e.bar([LABEL[k] for k in KDF_ORDER], pvals,
-                      color=[PALETTE[k] for k in KDF_ORDER], alpha=0.88,
-                      edgecolor="white", linewidth=0.6)
+    ax_e.bar([LABEL[k] for k in KDF_ORDER], pvals,
+             color=[PALETTE[k] for k in KDF_ORDER], alpha=0.88,
+             edgecolor="white", linewidth=0.6)
     ax_e.axhline(0.01, color="red", linestyle="--", linewidth=1.1, alpha=0.7,
                  label="Reject Threshold (p=0.01)")
     ax_e.set_ylim(0, 1)
@@ -560,10 +559,10 @@ def plot_avalanche_mean_error():
     maxs_ = [M["avalanche_results"][k]["max"]  for k in KDF_ORDER]
 
     x = np.arange(len(KDF_ORDER))
-    bars = ax.bar(x, means, color=[PALETTE[k] for k in KDF_ORDER],
-                  alpha=0.88, edgecolor="white", linewidth=0.8, width=0.55,
-                  yerr=stds, capsize=6,
-                  error_kw={"elinewidth": 1.6, "ecolor": "#222"})
+    ax.bar(x, means, color=[PALETTE[k] for k in KDF_ORDER],
+           alpha=0.88, edgecolor="white", linewidth=0.8, width=0.55,
+           yerr=stds, capsize=6,
+           error_kw={"elinewidth": 1.6, "ecolor": "#222"})
 
     # Min-Max whiskers
     for xi, mn, mx in zip(x, mins_, maxs_):
